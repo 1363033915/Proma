@@ -414,7 +414,7 @@ export function SidePanel({ sessionId, sessionPath, activeTab, onTabChange, widt
         >
           <DiffPanelTabBar activeTab={activeTab} onTabChange={onTabChange} onClose={() => setIsOpen(false)} />
 
-          {activeTab === 'changes' ? (
+          {activeTab === 'changes' && (
             sessionPath ? (
               <DiffChangesList
                 key={sessionId}
@@ -432,8 +432,8 @@ export function SidePanel({ sessionId, sessionPath, activeTab, onTabChange, widt
             ) : (
               <div className="flex-1 flex items-center justify-center text-muted-foreground text-xs">等待会话初始化...</div>
             )
-          ) : activeTab === 'session' ? (
-            <div className="flex-1 min-h-0 flex flex-col pt-0.5 mx-2 mb-2">
+          )}
+          <div className={cn('flex-1 min-h-0 flex-col pt-0.5 mx-2 mb-2', activeTab === 'session' ? 'flex' : 'hidden')}>
               {sessionPath ? (
                 <>
                   <div className="flex items-center gap-1 px-2 h-[32px] flex-shrink-0">
@@ -519,8 +519,7 @@ export function SidePanel({ sessionId, sessionPath, activeTab, onTabChange, widt
                 <div className="flex-1 flex items-center justify-center text-muted-foreground text-xs">等待会话初始化...</div>
               )}
             </div>
-          ) : (
-            <div className="flex-1 min-h-0 flex flex-col pt-0.5">
+          <div className={cn('flex-1 min-h-0 flex-col pt-0.5', activeTab === 'workspace' ? 'flex' : 'hidden')}>
               <div className="flex-1 min-h-0 flex flex-col mx-2 mb-2">
                 <div className="flex items-center gap-1 px-2 h-[32px] flex-shrink-0">
                   <FolderHeart className="size-3 text-muted-foreground" />
@@ -603,7 +602,6 @@ export function SidePanel({ sessionId, sessionPath, activeTab, onTabChange, widt
                 </div>
               </div>
             </div>
-          )}
         </div>
     </div>
   )
